@@ -1,0 +1,3 @@
+RewriteEngine on
+RewriteCond $1 !^(index\.php|images|robots\.txt|assets|public)
+RewriteRule ^(.*)$ /baseApp/index.php/$1 [L]

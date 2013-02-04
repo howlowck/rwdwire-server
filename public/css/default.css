@@ -1,0 +1,44 @@
+/* 
+    Document   : main
+    Created on : Sep 13, 2012, 11:02:36 AM
+    Author     : haoluo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.alert{
+    width: 300px;
+}
+
+.hidden{
+    display: none;
+}
+
+.ajax{
+    display: none;
+}
+
+.ajax.show{
+    display: block;
+}
+
+a.danger{
+	color: #BD362F;
+}
+
+span.required{
+    color: red;
+    font-weight: bolder;
+}
+
+.error-color{
+    color: #bd362f;
+}
+
+.notice-color{
+    color: #f89406;
+}
+
+.success-color{
+    color: #51a351;
+}

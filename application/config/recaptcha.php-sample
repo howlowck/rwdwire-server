@@ -1,0 +1,3 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+$config["recaptcha_public"]="";  //CHANGE ME
+$config["recaptcha_priviate"] ="";  //CHANGE ME
