@@ -5,17 +5,9 @@ class User extends DataMapper {
     public $table = 'users';
     public $has_many = array('role');
     public $validation = array(
-                            'username' => array(
-                                'label' => 'Username',
-                                'rules' => array('required','unique')
-                            ),
                             'email' => array(
                                 'label' => 'Email Address',
                                 'rules' => array('required','trim', 'valid_email','unique')
-                            ),
-                            'first_name' => array(
-                                'label' => 'First Name',
-                                'rules' => array('required')
                             ),
                             'password_hash' => array(
                                 'label' => 'Password',

@@ -56,11 +56,39 @@ class Users extends MY_Controller {
         $email = strtolower($this->input->post('email',TRUE));
         $password = $this->input->post('pass');
         $vpassword = $this->input->post('vpass');
-        $output = array(
-            "email" => $email,
-            'password' => "12345"
+        $user = new User();
+        if ($password != $vpassword) { 
+            $output = array(
+                "error" => "Your passwords don't match"
             );
+        } elseif ($user->get_by_email($email)->exists()) {
+            $output = array(
+                "error" => "Email already exists"
+            );
+        } else {  //If it passed my poor man's validation
+            $user->email = $email;
+            $user->password_hash = $password;
+            $user->vpassword = $vpassword;
+            if (!$user->save()) {
+                foreach ($user->error->all as $e){
+                    $errorMessage .= $e."<br>";
+                }
+                $output = array(
+                    "error" => $errorMessage
+                );
+            }
+            else {
+                $user->api_key = md5(uniqid(rand(), true));
+                $user->save();
+                $output = array(
+                    "email" => $user->email,
+                    "api_key" => $user->api_key
+                );
+            }
+        }
+        
         echo json_encode($output);
+        return;
     }
     function _index(){
         $users = new User();
@@ -123,7 +151,6 @@ class Users extends MY_Controller {
         $this->session->set_flashdata('success','you have been added!! <br> Check your email inbox for a confirmation email :)');
         $this->sendEmailVerify($user);
         $this->gen_lib->redirect("welcome","resume");
-        
     }
 
     function _edit($id){
