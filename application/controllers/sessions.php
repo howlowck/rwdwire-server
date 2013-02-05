@@ -21,6 +21,7 @@ class Sessions extends MY_Controller{
             $this->session->set_flashdata('notice','You are already signed in.');
             redirect('welcome');
         }
+
         $this->template->build('sessions/login',$this->data);
     }
     

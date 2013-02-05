@@ -37,13 +37,29 @@ class Users extends MY_Controller {
 
         $user = User::authenticate($email, $password);
         if (!$user){
-           
+            $output = array(
+                'error' => 'sorry your crediential did not match'
+                );
+           echo json_encode($output);
            return false;
         }
         $output = array(
                 'email' => $user->email,
                 'api_key' => $user->api_key
                 );
+        echo json_encode($output);
+        return true;
+    }
+
+    function register() {
+        header('Content-type: application/json');
+        $email = strtolower($this->input->post('email',TRUE));
+        $password = $this->input->post('pass');
+        $vpassword = $this->input->post('vpass');
+        $output = array(
+            "email" => $email,
+            'password' => "12345"
+            );
         echo json_encode($output);
     }
     function _index(){

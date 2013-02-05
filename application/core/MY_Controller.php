@@ -31,8 +31,8 @@ class MY_Controller extends CI_Controller {
                                         'passwordResetEmailForm',
                                         'passwordResetForm',
                                         'passwordReset',
-                                        'login'
-
+                                        'login',
+                                        'register'
                                     ),
                                 'generate'=>'all',
                              );
