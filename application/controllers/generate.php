@@ -53,6 +53,29 @@ class Generate extends CI_Controller {
         	echo 1;
         }
 	}
+	public function form_controller() {
+		$this->load->helper('form');
+		$this->load->view('generate/form_controller');
+	}
+	public function view_controller() {
+		$post = $this->input->post();
+		$filename = render_controller_filename($post['controller']);
+        $filecontent = render_controller_content($post);
+        echo "<br><br><b> Will generate $filename </b><br><br>";
+        echo '<div id="file-preview">';
+        highlight_string($filecontent);
+        echo '</div>';
+
+	}
+	public function create_controller() {
+		$post = $this->input->post();
+		$generate = new Generator();
+		if (!$generate->controller($post)) {
+			echo 0;
+		} else {
+			echo 1;
+		}
+	}
 }
 
 /* End of file welcome.php */

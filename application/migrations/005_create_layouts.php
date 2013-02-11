@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Migration_Create_layout extends CI_Migration {
+class Migration_Create_layouts extends CI_Migration {
 	public function up() {
 		$this->dbforge->add_field(array(
 			// all tables must have:
@@ -58,10 +58,10 @@ class Migration_Create_layout extends CI_Migration {
 			));
 		$this->dbforge->add_key('id', TRUE); // TRUE makes it primary
 		$this->dbforge->add_key(array('url','user_id'));
-		$this->dbforge->create_table('layout');
+		$this->dbforge->create_table('layouts');
 	}
 		public function down() {
-			$this->dbforge->drop_table('layout');
+			$this->dbforge->drop_table('layouts');
 		}
 	}
 /* End of file 006_create_layout.php */

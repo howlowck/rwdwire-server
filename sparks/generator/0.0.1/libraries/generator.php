@@ -28,5 +28,14 @@ class Generator{
 		fclose($file);
 		return TRUE;
 	}
+
+	function controller($data){
+		$filename = render_controller_filename($data["controller"]);  //from generator helper
+		$file = fopen(config_item('controllers_path').$filename,'x') or die("Can't open file");
+		$stringData = render_controller_content($data);
+		fwrite($file,$stringData);
+		fclose($file);
+		return TRUE;
+	}
 	
 }

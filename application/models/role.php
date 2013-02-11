@@ -9,6 +9,4 @@ class Role extends DataMapper {
         parent::__construct();
     }
 
-    
-
 }

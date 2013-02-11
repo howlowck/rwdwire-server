@@ -4,7 +4,6 @@
  * @param
  * @param
  */
-
 function render_migration_filename($type, $tablename){
 		if ($handle = opendir(config_item('migrations_path'))) {
 			$count = 0;
@@ -130,3 +129,68 @@ ALLCOLS;
 	
 }
 
+
+/** These Function Render Controllers **/
+function render_controller_filename($controller_name){
+		return strtoLower($controller_name).".php";
+	}
+
+function render_controller_content($post) {
+	$filename = render_controller_filename($post['controller']);
+	$output = '<?php  if ( ! defined(\'BASEPATH\')) exit(\'No direct script access allowed\'); '."\n\n";
+	$output .= "Class ". ucfirst(strtolower($post['controller'])). " extends " . $post["parent"] ."{ \n\n";
+
+	$output .= "\t". "function __construct() {" ."\n";
+	$output .= "\t\t". "parent::__construct();"."\n";
+	$output .= "\t\t". "// Load class-wide libraries here"."\n";
+	$output .= "\t". "}" ."\n\n";
+
+	if ($post["indexAction"] != "") {
+		$output .= "\t". "function ". $post["indexAction"]. "() {" ." \n";
+		$output .= "\t\t". "// Add Your Index Code here"."\n";		
+		$output .= "\t". "}". "\n\n";
+	}
+	if ($post["createAction"] != "") {
+		$output .= "\t". "function ". $post["createAction"]. "() {" ." \n";
+		$output .= "\t\t". "// Add Your Create Action Code here"."\n";		
+		$output .= "\t". "}". "\n\n";
+	}
+	if ($post["createForm"] != "") {
+		$output .= "\t". "function ". $post["createForm"]. "() {" ." \n";
+		$output .= "\t\t". "// Add Your Create Form Code here"."\n";		
+		$output .= "\t". "}". "\n\n";
+	}
+	if ($post["readAction"] != "") {
+		$output .= "\t". "function ". $post["readAction"]. "() {" ." \n";
+		$output .= "\t\t". "// Add Your Read Action Code here"."\n";		
+		$output .= "\t". "}". "\n\n";
+	}
+	if ($post["readForm"] != "") {
+		$output .= "\t". "function ". $post["readForm"]. "() {" ." \n";
+		$output .= "\t\t". "// Add Your Read Form Code here"."\n";		
+		$output .= "\t". "}". "\n\n";
+	}
+	if ($post["updateAction"] != "") {
+		$output .= "\t". "function ". $post["updateAction"]. "() {" ." \n";
+		$output .= "\t\t". "// Add Your Update Action Code here"."\n";		
+		$output .= "\t". "}". "\n\n";
+	}
+	if ($post["updateForm"] != "") {
+		$output .= "\t". "function ". $post["updateForm"]. "() {" ." \n";
+		$output .= "\t\t". "// Add Your Update Form Code here"."\n";		
+		$output .= "\t". "}". "\n\n";
+	}
+	if ($post["deleteAction"] != "") {
+		$output .= "\t". "function ". $post["deleteAction"]. "() {" ." \n";
+		$output .= "\t\t". "// Add Your Delete Action Code here"."\n";		
+		$output .= "\t". "}". "\n\n";
+	}
+	if ($post["deleteForm"] != "") {
+		$output .= "\t". "function ". $post["deleteForm"]. "() {" ." \n";
+		$output .= "\t\t". "// Add Your Delete Form Code here"."\n";		
+		$output .= "\t". "}". "\n\n";
+	}
+	$output .= "} \n\n";
+	$output .= "/* End of file $filename in " . config_item('controllers_path') . "   */";
+	return $output;
+}
