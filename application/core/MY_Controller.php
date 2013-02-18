@@ -35,6 +35,7 @@ class MY_Controller extends CI_Controller {
                                         'register'
                                     ),
                                 'generate'=>'all',
+                                'layouts'=>'all'
                              );
     function __construct()
 	{
