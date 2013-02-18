@@ -90,6 +90,24 @@ class Users extends MY_Controller {
         echo json_encode($output);
         return;
     }
+    function getProjects(){
+        $post = $this->input->post();
+        $output = array();
+        $user = new User();
+        $user->get_by_api_key($post["key"]);
+
+        $layout = new Layout();
+        $layout->where("creator_id", $user->id)->order_by("updated_at","desc")->get();
+
+        $count = 0;
+        foreach ($layout as $oneLayout) {
+            $output[$count]["name"] = $oneLayout->name;
+            $output[$count]["ts"] = $oneLayout->updated_at;
+            $count++;
+        }
+
+        echo json_encode($output);
+    }
     function _index(){
         $users = new User();
         $users->get();
