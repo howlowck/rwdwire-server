@@ -75,10 +75,7 @@ Class Layouts extends MY_Controller{
 				echo "successful! update old layout";
 				return true;
 			}
-			
 		} 
-		
-
 	}
 } 
 
