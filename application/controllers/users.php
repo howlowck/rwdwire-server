@@ -97,12 +97,13 @@ class Users extends MY_Controller {
         $user->get_by_api_key($post["key"]);
 
         $layout = new Layout();
-        $layout->where("creator_id", $user->id)->order_by("updated_at","desc")->get();
+        $layout->where("user_id", $user->id)->order_by("updated_at","desc")->get();
 
         $count = 0;
+
         foreach ($layout as $oneLayout) {
             $output[$count]["name"] = $oneLayout->name;
-            $output[$count]["ts"] = $oneLayout->updated_at;
+            $output[$count]["ts"] = (!$oneLayout->updated_at) ? $oneLayout->created_at : $oneLayout->updated_at;
             $count++;
         }
 
