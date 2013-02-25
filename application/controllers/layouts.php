@@ -29,15 +29,17 @@ Class Layouts extends MY_Controller{
 		$output["dimensions"] = $layout->width;
 		$output["elements"] = $layout->element;
 		echo json_encode($output);
+		return true;
 	}
 	function save_layout() {
 		$post = $this->input->post();
-
+		$output = array();
 		$user = new User();
 		$user->get_by_api_key($post["key"]);
 
 		if (!$user->exists()) {
-			echo "User not logged in";
+			$output["error"] = "You are not logged in!";
+			echo json_encode($output);
 			return false;
 		}
 
@@ -50,7 +52,9 @@ Class Layouts extends MY_Controller{
 			$orig_layout->element = $post["elements"];
 			$orig_layout->user_id = $user->id;
 			$orig_layout->save();
-			echo "successful! create brand new!";
+			$output["success"] = "You created a new layout!";
+			$output["url"] = $orig_layout->name;
+			echo json_encode($output);
 			return true;
 		} 
 
@@ -61,18 +65,25 @@ Class Layouts extends MY_Controller{
 				$new_layout = new Layout();
 				$new_layout->parent_id = $orig_layout->id;
 				$new_layout->save();
+				
 				$new_layout->name = uniqid($new_layout->id);
 				$new_layout->width = $post["widths"];
 				$new_layout->element = $post["elements"];
 				$new_layout->user_id = $user->id;
 				$new_layout->save();
-				echo "successful! createfrom another layout";
+
+				$output["success"] = "You created a new layout (from another)!";
+				$output["url"] = $new_layout->name;
+				echo json_encode($output);
 				return true;
 			} else {
 				$orig_layout->width = $post["widths"];
 				$orig_layout->element = $post["elements"];
 				$orig_layout->save();
-				echo "successful! update old layout";
+
+				$output["success"] = "You saved (updated) the layout!";
+				$output["url"] = $orig_layout->name;
+				echo json_encode($output);
 				return true;
 			}
 		} 
