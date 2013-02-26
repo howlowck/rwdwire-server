@@ -30,6 +30,7 @@ class Users extends MY_Controller {
         return $response;
     }
     function login() {
+        header("Access-Control-Allow-Origin: *");
         header('Content-type: application/json');
         $email = strtolower($this->input->post('email',TRUE));
         $password = $this->input->post('pass');
