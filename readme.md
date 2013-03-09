@@ -1,4 +1,4 @@
-# RWD Wireframes Server Client
+# RWD Wireframes Server
 
 ## Intro
 This is the server that takes care of the register, login, and save functionality (or backend functionality) of the RWD Wireframes Application.  This server code is written using CodeIgniter.
